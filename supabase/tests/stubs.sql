@@ -1,4 +1,5 @@
 -- Minimal stand-ins for what Supabase provides, so the migrations can be
+set client_min_messages = error;
 -- tested on a plain Postgres. Not applied to a real Supabase project.
 
 create role anon nologin;
@@ -38,3 +39,6 @@ grant usage on schema public to anon, authenticated, service_role;
 -- Supabase's default: new public tables are fully granted to the API roles.
 alter default privileges in schema public grant all on tables to anon, authenticated, service_role;
 alter default privileges in schema public grant all on sequences to anon, authenticated, service_role;
+
+-- Supabase creates this publication for Realtime.
+create publication supabase_realtime;

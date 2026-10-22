@@ -1,9 +1,12 @@
 -- Example data for local development only: the five Mysuru cafes from
 -- docs/customer-mock.html. Coordinates are approximate.
 
-insert into public.cities (name, active, sort) values
-  ('Mysuru', true, 0), ('Bengaluru', false, 1), ('Raipur', false, 2),
-  ('Bhilai', false, 3), ('Jaipur', false, 4)
+insert into public.cities (name, active, sort, lat, lng) values
+  ('Mysuru',    true,  0, 12.2958, 76.6394),
+  ('Bengaluru', false, 1, 12.9716, 77.5946),
+  ('Raipur',    false, 2, 21.2514, 81.6296),
+  ('Bhilai',    false, 3, 21.1938, 81.3509),
+  ('Jaipur',    false, 4, 26.9124, 75.7873)
 on conflict (name) do nothing;
 
 insert into public.cafes (id, slug, name, kind, area, city, lat, lng, brand_bg, brand_ink, brand_acc, brand_pat, listed) values

@@ -221,6 +221,18 @@ select test.as_user('aaaaaaaa-0000-4000-8000-000000000001');
 select test.ok((select count(*) from public.push_tokens) = 0, 'old account no longer receives pushes');
 reset role;
 
+-- ----------------------------------------------------------- export
+set role authenticated;
+select test.as_user('aaaaaaaa-0000-4000-8000-000000000001');
+select test.ok((select export_my_data -> 'profile' ->> 'name' = 'Vashudev'
+                       and jsonb_array_length(export_my_data -> 'cards') = 2
+                       and jsonb_array_length(export_my_data -> 'special_days') = 5
+                from public.export_my_data()), 'export contains my profile, cards and special days');
+select test.ok(position('Asha' in public.export_my_data()::text) = 0, 'export contains nothing about other customers');
+select test.as_user(null);
+select test.ok(public.export_my_data() is null, 'export is empty when signed out');
+reset role;
+
 -- ----------------------------------------------------------- delete data
 set role authenticated;
 select test.as_user('aaaaaaaa-0000-4000-8000-000000000001');

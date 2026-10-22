@@ -33,3 +33,14 @@ Build order: Supabase schema, then customer_app, then cafe_app, then staff_app.
   trialing, active or past_due (`cafe_is_live`). Only the Razorpay webhook
   (service role) writes `cafe_subscriptions` and `billing_events`.
 - Local times (opening hours, offer windows, the daily alert cap) are Asia/Kolkata.
+
+## customer_app
+
+- `flutter analyze` and `flutter test` must pass. Widget tests run on demo data
+  (`DemoRepository`); add one for each new flow.
+- With no `SUPABASE_URL` dart-define the app runs in demo mode on the mock's data.
+  Keep `DemoRepository` behaving like the server (same caps and rules).
+- Colours and type come from `lib/theme.dart`, which mirrors the mock's CSS tokens.
+  Use `Palette.of(context)`, `ts()` and `heading()` rather than raw colours or styles.
+- All backend access goes through `Repository`; screens never call Supabase directly.
+- Code is formatted at 160 columns (`dart format -l 160`).

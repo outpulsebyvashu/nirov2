@@ -1,0 +1,10 @@
+include: package:flutter_lints/flutter.yaml
+
+formatter:
+  page_width: 160
+analyzer:
+  exclude:
+    - build/**
+    - android/**
+    - ios/**
+    - web/**

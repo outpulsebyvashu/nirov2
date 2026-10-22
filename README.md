@@ -10,10 +10,11 @@ docs/customer-mock.html   approved customer-app design (open in a browser)
 supabase/migrations/      schema, RPCs, row level security, storage buckets
 supabase/seed.sql         example Mysuru cafes from the mock (local dev only)
 supabase/tests/           local test harness for the schema and RLS
+customer_app/             Flutter customer app (see its README)
 ```
 
-Coming next, in order: `customer_app/`, `cafe_app/`, `staff_app/` (Flutter), then the
-Next.js site with the Razorpay webhook.
+Coming next, in order: `cafe_app/`, `staff_app/` (Flutter), then the Next.js site with
+the Razorpay webhook.
 
 ## Data model
 
@@ -37,6 +38,7 @@ Next.js site with the Razorpay webhook.
 | `join_cafe(cafe_id, offers_opt_in)` | customer | Creates the card (idempotent) |
 | `record_geo_alert(cafe_id)` | customer | Call when an OS geofence fires; `true` means show the popup |
 | `register_push_token(token, app, platform)` | signed in | Saves an FCM token, moving it off any previous account |
+| `export_my_data()` | customer | Everything held about the customer, as JSON ("Download my data") |
 | `delete_my_account()` | customer | Deletes the account and everything attached |
 | `lookup_card(member_code)` | staff | What the scanner shows: first name, stamps, goal |
 | `add_stamps(member_code, count)` | staff | Adds stamps, applying any running multiplier offer, stops at the goal |
